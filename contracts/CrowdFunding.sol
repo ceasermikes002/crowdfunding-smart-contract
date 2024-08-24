@@ -20,6 +20,8 @@ contract Crowdfunding {
     address public owner;
 
     // Events to log important actions
+    //CampaignCreated: Emitted when a new campaign is created. 
+    //Indexed parameters (campaignId and benefactor) are searchable in the blockchain logs.
     event CampaignCreated(
         uint indexed campaignId,
         string title,
@@ -27,11 +29,13 @@ contract Crowdfunding {
         uint goal,
         uint deadline
     );
+    //DonationReceived: Emitted when a donation is made to a campaign.
     event DonationReceived(
         uint indexed campaignId,
         address indexed donor,
         uint amount
     );
+    //CampaignEnded: Emitted when a campaign ends and funds are transferred.
     event CampaignEnded(
         uint indexed campaignId,
         uint amountRaised,
@@ -62,6 +66,7 @@ contract Crowdfunding {
         address payable _benefactor,     // Address to receive the funds if the campaign is successful
         uint _goal,                      // Funding goal for the campaign (in wei)
         uint _duration                   // Duration of the campaign (in seconds from now)
+        //Note that memory means that the variable would only be stored temporarily and not to the blockchain
     ) public {
         require(_goal > 0, "Goal must be greater than zero."); // Ensure the goal is positive
 
